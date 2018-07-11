@@ -445,7 +445,7 @@ function updateDevice(ip) {
             hs_sw_ver = result.softwareVersion;
             hs_hw_ver = result.hardwareVersion;
             hs_on_time = result.on_time;
-            hs_on_time = result.rssi;
+            hs_rssi = result.rssi;
             hs_model  = result.model;
             hs_state  = result.sysInfo.relay_state;
 
