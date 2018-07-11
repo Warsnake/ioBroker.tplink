@@ -1,6 +1,6 @@
 {
   "common": {
-    "name": "tplink",
+    "name": "hs100",
     "version": "1.0.3",
     "materialize": true,
     "news": {
@@ -81,7 +81,7 @@
         "mode":                     "daemon",
         "messagebox":               true,
 		"enabled":                  true,
-        "readme":                   "https://github.com/arteck/ioBroker.hs100/blob/master/README.md",
+        "readme":                   "https://github.com/Warsnake/ioBroker.tplink/blob/master/README.md",
         "loglevel":                 "info",
         "restartAdapters":          [
           "vis"
