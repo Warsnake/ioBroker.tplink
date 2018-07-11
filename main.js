@@ -89,6 +89,7 @@ function createState(name, ip, callback) {
 // plug HS110
     var hs_current;
     var hs_power;
+    var hs_voltage;
     var hs_total;
     var hs_ip;
     var hs_state;
@@ -199,6 +200,17 @@ function createState(name, ip, callback) {
                     write: 'true',
                     role: 'value',
                     desc: 'power'
+                }, {
+                    ip: ip
+                }, callback);
+				adapter.createState('', id, 'voltage', {
+                    name: name || ip,
+                    def: 0,
+                    type: 'string',
+                    read: 'true',
+                    write: 'true',
+                    role: 'value',
+                    desc: 'voltage'
                 }, {
                     ip: ip
                 }, callback);
@@ -376,6 +388,7 @@ function updateDevice(ip) {
 // plug HS110
     var hs_current;
     var hs_power;
+	var hs_voltage;
     var hs_total;
     var hs_emeter;
     var lb_bright;
@@ -425,10 +438,12 @@ function updateDevice(ip) {
                     if (typeof result != "undefined") {
                         hs_current = result.current_ma;
                         hs_power = result.power_mw;
+                        hs_voltage = result.voltage_mv;
                         hs_total = result.total_wh;
 
                         adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.current', hs_current || '0', true);
                         adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.power', hs_power || '0', true);
+                        adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.voltage', hs_voltage || '0', true);
                         adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.total', hs_total || '0', true);
 
                         adapter.log.debug('Refresh Data HS110 ' + ip);
