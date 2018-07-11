@@ -82,10 +82,12 @@ process.on('SIGINT', function () {
 function createState(name, ip, callback) {
     var hs_sw_ver;
     var hs_hw_ver;
-    var hs_model;
-	var hs_on_time;
-    var hs_mac;
+	var hs_model;
+    var hs_on_time;
+	var hs_mac;
     var hs_sysinfo;
+
+
 
 // plug HS110
     var hs_current;
@@ -167,6 +169,18 @@ function createState(name, ip, callback) {
             }, {
                 ip: ip
             }, callback);
+			
+			adapter.createState('', id, 'on_time', {
+                name: name || ip,
+                def: result.on_time,
+                type: 'string',
+                read: 'true',
+                write: 'true',
+                role: 'value',
+                desc: 'on_time'
+            }, {
+                ip: ip
+            }, callback);
 
             adapter.createState('', id, 'model', {
                 name: name || ip,
@@ -176,18 +190,6 @@ function createState(name, ip, callback) {
                 write: 'true',
                 role: 'value',
                 desc: 'model'
-            }, {
-                ip: ip
-            }, callback);
-			
-			adapter.createState('', id, 'on_time', {
-                name: name || ip,
-                def: hs_model,
-                type: 'string',
-                read: 'true',
-                write: 'true',
-                role: 'value',
-                desc: 'on_time'
             }, {
                 ip: ip
             }, callback);
@@ -201,7 +203,7 @@ function createState(name, ip, callback) {
                     read: 'true',
                     write: 'true',
                     role: 'value',
-                    desc: 'aktuell_ma'
+                    desc: 'current'
                 }, {
                     ip: ip
                 }, callback);
@@ -212,7 +214,7 @@ function createState(name, ip, callback) {
                     read: 'true',
                     write: 'true',
                     role: 'value',
-                    desc: 'aktuelle_leistung'
+                    desc: 'power'
                 }, {
                     ip: ip
                 }, callback);
@@ -394,8 +396,8 @@ function updateDevice(ip) {
     var hs_state;
     var hs_sw_ver;
     var hs_hw_ver;
-    var hs_model;
 	var hs_on_time;
+    var hs_model;
     var hs_mac;
     var hs_lastupdate;
 
@@ -428,8 +430,8 @@ function updateDevice(ip) {
             hs_mac    = result.mac;
             hs_sw_ver = result.softwareVersion;
             hs_hw_ver = result.hardwareVersion;
+            hs_on_time = result.on_time;
             hs_model  = result.model;
-            hs_model  = result.on_time;
             hs_state  = result.sysInfo.relay_state;
 
             if (hs_state == 0) {
@@ -439,9 +441,8 @@ function updateDevice(ip) {
             }
 
             adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.sw_ver'  , hs_sw_ver || 'undefined', true);
-            adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.hw_ver'  , hs_hw_ver || 'undefined', true);
+            adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.hw_ver'  , hs_hw_ver || 'undefined', true);           adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.on_time'  , hs_on_time || 'undefined', true);
             adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.model'   , hs_model  || 'undefined', true);
-            adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.on_time' , hs_on_time|| 'undefined', true);
             adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.mac'     , hs_mac    || 'undefined', true);
             adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.state'   , hs_state, true);
 
