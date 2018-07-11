@@ -189,7 +189,7 @@ function createState(name, ip, callback) {
                     read: 'true',
                     write: 'true',
                     role: 'value',
-                    desc: 'current'
+                    desc: 'aktuell_ma'
                 }, {
                     ip: ip
                 }, callback);
@@ -200,7 +200,7 @@ function createState(name, ip, callback) {
                     read: 'true',
                     write: 'true',
                     role: 'value',
-                    desc: 'power'
+                    desc: 'aktuelle_leistung'
                 }, {
                     ip: ip
                 }, callback);
@@ -226,14 +226,14 @@ function createState(name, ip, callback) {
                 }, {
                     ip: ip
                 }, callback);
-                adapter.createState('', id, 'totalNow', {
+                adapter.createState('', id, 'total', {
                     name: name || ip,
                     def: 0,
                     type: 'string',
                     read: 'true',
                     write: 'true',
                     role: 'value',
-                    desc: 'totalNow'
+                    desc: 'total'
                 }, {
                     ip: ip
                 }, callback);
