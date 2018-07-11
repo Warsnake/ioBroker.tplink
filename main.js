@@ -83,6 +83,7 @@ function createState(name, ip, callback) {
     var hs_sw_ver;
     var hs_hw_ver;
     var hs_model;
+	var hs_on_time;
     var hs_mac;
     var hs_sysinfo;
 
@@ -90,7 +91,6 @@ function createState(name, ip, callback) {
     var hs_current;
     var hs_power;
     var hs_voltage;
-    var hs_on_time;
     var hs_total;
     var hs_ip;
     var hs_state;
@@ -179,6 +179,18 @@ function createState(name, ip, callback) {
             }, {
                 ip: ip
             }, callback);
+			
+			adapter.createState('', id, 'on_time', {
+                name: name || ip,
+                def: hs_model,
+                type: 'string',
+                read: 'true',
+                write: 'true',
+                role: 'value',
+                desc: 'on_time'
+            }, {
+                ip: ip
+            }, callback);
 
             // plug HS110
             if (hs_model.indexOf('110') > 1) {
@@ -212,17 +224,6 @@ function createState(name, ip, callback) {
                     write: 'true',
                     role: 'value',
                     desc: 'voltage'
-                }, {
-                    ip: ip
-                }, callback);
-				 adapter.createState('', id, 'on_time', {
-                    name: name || ip,
-                    def: 0,
-                    type: 'string',
-                    read: 'true',
-                    write: 'true',
-                    role: 'value',
-                    desc: 'on_time'
                 }, {
                     ip: ip
                 }, callback);
@@ -394,6 +395,7 @@ function updateDevice(ip) {
     var hs_sw_ver;
     var hs_hw_ver;
     var hs_model;
+	var hs_on_time;
     var hs_mac;
     var hs_lastupdate;
 
@@ -401,7 +403,6 @@ function updateDevice(ip) {
     var hs_current;
     var hs_power;
 	var hs_voltage;
-	var hs_on_time;
     var hs_total;
     var hs_emeter;
     var lb_bright;
@@ -428,6 +429,7 @@ function updateDevice(ip) {
             hs_sw_ver = result.softwareVersion;
             hs_hw_ver = result.hardwareVersion;
             hs_model  = result.model;
+            hs_model  = result.on_time;
             hs_state  = result.sysInfo.relay_state;
 
             if (hs_state == 0) {
@@ -439,6 +441,7 @@ function updateDevice(ip) {
             adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.sw_ver'  , hs_sw_ver || 'undefined', true);
             adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.hw_ver'  , hs_hw_ver || 'undefined', true);
             adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.model'   , hs_model  || 'undefined', true);
+            adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.on_time' , hs_on_time|| 'undefined', true);
             adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.mac'     , hs_mac    || 'undefined', true);
             adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.state'   , hs_state, true);
 
@@ -457,7 +460,6 @@ function updateDevice(ip) {
                         adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.current', hs_current || '0', true);
                         adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.power', hs_power || '0', true);
                         adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.voltage', hs_voltage || '0', true);
-                        adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.on_time', hs_on_time || '0', true);
                         adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.total', hs_total || '0', true);
 
                         adapter.log.debug('Refresh Data HS110 ' + ip);
