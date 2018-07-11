@@ -1,7 +1,7 @@
 {
   "common": {
-    "name": "hs100",
-    "version": "1.0.2",
+    "name": "tplink",
+    "version": "1.0.3",
     "materialize": true,
     "news": {
       "1.0.0": {
@@ -50,17 +50,17 @@
         "ru": "?????????"
       }
     },
-    "title": "HS100 Adapter",
+    "title": "HS100 Adapter self",
         "titleLang": {
-          "en": "HS100 adapter",
-          "de": "HS100 Adapter",
-          "ru": "Адаптер HS100",
-          "pt": "adaptador HS100",
-          "nl": "HS100-adapter",
-          "fr": "HS100 adaptateur",
-          "it": "HS100 fritzbox",
-          "es": "adaptador HS100",
-          "pl": "HS100 adapter"
+          "en": "HS100 adapter self",
+          "de": "HS100 Adapter self",
+          "ru": "Адаптер HS100 self",
+          "pt": "adaptador HS100 self",
+          "nl": "HS100-adapter self",
+          "fr": "HS100 adaptateur self",
+          "it": "HS100 fritzbox self",
+          "es": "adaptador HS100 self",
+          "pl": "HS100 adapter self"
         },
         "desc": {
           "en": "connects TP-Link Plugs and Bulbs to ioBroker",
