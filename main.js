@@ -427,9 +427,9 @@ function updateDevice(ip) {
                         hs_power = result.power_mw;
                         hs_total = result.total_wh;
 
-                        adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.current_ma', hs_current || '0', true);
-                        adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.power_mw', hs_power || '0', true);
-                        adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.total_wh', hs_total || '0', true);
+                        adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.current', hs_current || '0', true);
+                        adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.power', hs_power || '0', true);
+                        adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.total', hs_total || '0', true);
 
                         adapter.log.debug('Refresh Data HS110 ' + ip);
                     }
