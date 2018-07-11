@@ -84,6 +84,7 @@ function createState(name, ip, callback) {
     var hs_hw_ver;
 	var hs_model;
     var hs_on_time;
+    var hs_rssi;
 	var hs_mac;
     var hs_sysinfo;
 
@@ -178,6 +179,18 @@ function createState(name, ip, callback) {
                 write: 'true',
                 role: 'value',
                 desc: 'on_time'
+            }, {
+                ip: ip
+            }, callback);
+			
+			adapter.createState('', id, 'rssi', {
+                name: name || ip,
+                def: result.rssi,
+                type: 'string',
+                read: 'true',
+                write: 'true',
+                role: 'value',
+                desc: 'rssi'
             }, {
                 ip: ip
             }, callback);
@@ -397,6 +410,7 @@ function updateDevice(ip) {
     var hs_sw_ver;
     var hs_hw_ver;
 	var hs_on_time;
+	var hs_rssi;
     var hs_model;
     var hs_mac;
     var hs_lastupdate;
@@ -431,6 +445,7 @@ function updateDevice(ip) {
             hs_sw_ver = result.softwareVersion;
             hs_hw_ver = result.hardwareVersion;
             hs_on_time = result.on_time;
+            hs_on_time = result.rssi;
             hs_model  = result.model;
             hs_state  = result.sysInfo.relay_state;
 
@@ -442,6 +457,7 @@ function updateDevice(ip) {
 
             adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.sw_ver'  , hs_sw_ver || 'undefined', true);
             adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.hw_ver'  , hs_hw_ver || 'undefined', true);           adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.on_time'  , hs_on_time || 'undefined', true);
+			adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.rssi'  , hs_rssi || 'undefined', true);
             adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.model'   , hs_model  || 'undefined', true);
             adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.mac'     , hs_mac    || 'undefined', true);
             adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.state'   , hs_state, true);
