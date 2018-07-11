@@ -452,7 +452,7 @@ function updateDevice(ip) {
                         hs_current = result.current_ma;
                         hs_power = result.power_mw;
                         hs_voltage = result.voltage_mv;
-                        hs_total = result.total_wh;
+                        hs_total = result.total;
 
                         adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.current', hs_current || '0', true);
                         adapter.setForeignState(adapter.namespace + '.' + ip.replace(/[.\s]+/g, '_') + '.power', hs_power || '0', true);
